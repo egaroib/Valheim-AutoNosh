@@ -1,0 +1,10 @@
+{
+  "name": "AutoNosh",
+  "version_number": "0.5.0",
+  "website_url": "https://github.com/egaroib/Valheim-AutoNosh",
+  "description": "Smart auto-eat for food only (no potions/meads), with profile-based selection, a cycle key, and an AFK pause.",
+  "dependencies": [
+    "denikson-BepInExPack_Valheim-5.4.2350",
+    "ValheimModding-Jotunn-2.30.2"
+  ]
+}

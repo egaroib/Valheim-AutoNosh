@@ -1,0 +1,48 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <AssemblyName>AutoNosh</AssemblyName>
+    <RootNamespace>AutoNosh</RootNamespace>
+    <Version>0.5.0</Version>
+    <Description>Smart auto-eat for food only, with profile-based selection, a cycle key, and an AFK pause.</Description>
+    <Authors>RAGEmedia</Authors>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Lets net462 compile on Linux without Mono. -->
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all" />
+    <!-- Rewrites referenced game assemblies so private members are reachable. -->
+    <PackageReference Include="BepInEx.AssemblyPublicizer.MSBuild" Version="0.4.1" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Game code. Publicized: most of Valheim's members are private. -->
+    <Reference Include="$(ValheimManaged)/assembly_valheim.dll">
+      <Publicize>true</Publicize><Private>false</Private>
+    </Reference>
+    <Reference Include="$(ValheimManaged)/assembly_utils.dll"
+               Condition="Exists('$(ValheimManaged)/assembly_utils.dll')">
+      <Publicize>true</Publicize><Private>false</Private>
+    </Reference>
+    <Reference Include="$(ValheimManaged)/assembly_guiutils.dll"
+               Condition="Exists('$(ValheimManaged)/assembly_guiutils.dll')">
+      <Publicize>true</Publicize><Private>false</Private>
+    </Reference>
+
+    <!-- Unity. Globbed because the exact module set shifts between Unity versions. -->
+    <Reference Include="$(ValheimManaged)/UnityEngine*.dll"><Private>false</Private></Reference>
+    <Reference Include="$(ValheimManaged)/Unity.TextMeshPro.dll"
+               Condition="Exists('$(ValheimManaged)/Unity.TextMeshPro.dll')">
+      <Private>false</Private>
+    </Reference>
+
+    <!-- BepInEx and Harmony from the Gale dev profile, so we compile against exactly
+         what will be loaded at runtime rather than a NuGet copy. -->
+    <Reference Include="$(ValheimBepInExCore)/BepInEx.dll"><Private>false</Private></Reference>
+    <Reference Include="$(ValheimBepInExCore)/0Harmony.dll"><Private>false</Private></Reference>
+
+    <Reference Include="$(JotunnDll)"><Private>false</Private></Reference>
+  </ItemGroup>
+
+</Project>

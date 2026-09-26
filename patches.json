@@ -1,0 +1,13 @@
+{
+  "mod": "AutoNosh",
+  "targets": [
+    {
+      "type": "Player",
+      "method": "SetControls"
+    },
+    {
+      "type": "Player",
+      "method": "Update"
+    }
+  ]
+}
